@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+    <link href="style/styles.css" rel="stylesheet">
+<!--    <script type="text/javascript" src="script/my.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="main_block">
+    <div class="block">
+        <h1>Tasks editor</h1>
+    </div>
+    <div class="block">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="task: ${tasks}">
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.description}" th:id="'description_' + ${task.id}"></td>
+                    <td th:width="200" th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
+                    <td th:id="'td_edit_' + ${task.id}">
+                        <input th:id="'edit_' + ${task.id}" th:type="button" th:onclick="'edit_task(' + ${task.id} + ')'" th:value="Edit">
+                    </td>
+                    <td>
+                        <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="block">
+        <h2>Add new value</h2>
+    </div>
+    <div class="block">
+        <form method="post" action="/">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>-</td>
+                        <td>
+                            <label for="description_new"></label>
+                            <input id="description_new" name="description" type='text' />
+                        </td>
+                        <td>
+                            <label for="status_new"></label>
+                            <select id="status_new" name="status">
+                                <option th:each="status_value: ${statuses}" th:text="${status_value.name()}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <input th:id="save_new" type="submit" value="Save">
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="block">
+        <h2>
+            <button th:each="pageNumber : ${page_numbers}" class="button_page">
+                <a th:href="@{/(page=${pageNumber}, limit=10)}" th:text="${pageNumber}" th:classappend="${pageNumber == current_page? 'active_page' : ''}"></a>
+            </button>
+        </h2>
+    </div>
+
+    <h1 id="jqueryTest" onclick="$('#jqueryTest').text('new value')"> Tap to test jquery</h1>
+</div>
+
+<script>
+
+    function delete_task(task_id) {
+        let url = "/" + task_id;
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            success: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+    // function edit_task(task_id) {
+    //     let url = "/edit";
+    //     $.ajax({
+    //         url: url,
+    //         type: 'GET',
+    //     });
+    // }
+    //
+    //
+    // function update_task(task_id) {
+    //     let url = "/update";
+    //
+    //     let value_description = $("#input_description_" + task_id).val();
+    //     let value_status = $("#select_status_" + task_id).val();
+    //
+    //     $.ajax({
+    //         url: url,
+    //         type: 'POST',
+    //         dataType: 'json',
+    //         contentType: 'application/json;charset=UTF-8',
+    //         async: false,
+    //         data:JSON.stringify( {
+    //             "description": value_description,
+    //             "status" : value_status
+    //         })
+    //     });
+    // }
+    //
+
+    function edit_task(task_id) {
+        let identifier_delete = "#delete_" + task_id;
+        $(identifier_delete).remove();
+
+        let identifier_edit = "#edit_" + task_id;
+        let property_value = "Save";
+        let property_onclick = "update_task(" + task_id + ")";
+
+        $(identifier_edit).attr("value", property_value);
+        $(identifier_edit).attr("onclick", property_onclick);
+
+        let current_tr_element = $(identifier_edit).parent().parent();
+        let children = current_tr_element.children()
+        let td_description = children[1];
+        td_description.innerHTML = "<input id='input_description_" + task_id + "' type='text' value='" + td_description.innerHTML + "'>";
+
+        let td_status = children[2];
+        let status_current_value = td_status.innerHTML;
+        td_status.innerHTML = getDropdownStatusHtml(task_id);
+        let status_id = "#select_status_" + task_id;
+        $(status_id).val(status_current_value).change();
+
+    }
+
+    function getDropdownStatusHtml(task_id) {
+        let status_id = "'select_status_" + task_id + "'";
+        return "<select id=" + status_id + " name = 'status'>"
+            + "<option value='IN_PROGRESS'>IN_PROGRESS</option>"
+            + "<option value='DONE'>DONE</option>"
+            + "<option value='PAUSED'>PAUSED</option>"
+            + "</select>";
+    }
+
+
+    function update_task(task_id) {
+        let value_description = $("#input_description_" + task_id).val();
+        let value_status = $("#select_status_" + task_id).val();
+
+        $.ajax({
+            url: "/update",
+            method: 'POST',
+            data: {
+                id: task_id,
+                description: value_description,
+                status: value_status
+                    },
+            success: function () {
+                window.location.reload();
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

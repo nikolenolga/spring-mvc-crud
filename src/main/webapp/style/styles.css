@@ -1,19 +1,12 @@
-/*th, td {*/
-/*    font-size: large;*/
-/*    border: solid;*/
-/*    color: red;*/
-/*}*/
-
 table {
     width: 100%;
     margin-bottom: 20px;
     border: 5px solid #fff;
-    border-top: 5px solid #fff;
-    border-bottom: 3px solid #fff;
+    border-bottom-width: 3px;
     border-collapse: collapse;
     outline: 3px solid #ffd300;
     font-size: 15px;
-    background: #fff!important;
+    background: #fff !important;
 }
 
 table th {
@@ -35,8 +28,8 @@ table td {
     font-size: 15px;
 }
 
-table tbody tr:nth-child(even){
-    background: #f8f8f8!important;
+table tbody tr:nth-child(even) {
+    background: #f8f8f8 !important;
 }
 
 .button_page {

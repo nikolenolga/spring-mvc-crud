@@ -11,5 +11,6 @@ public interface DtoMapper {
     DtoMapper MAPPER = Mappers.getMapper(DtoMapper.class);
 
     Task from(TaskRequestTo taskRequestTo);
+
     TaskResponseTo from(Task task);
 }

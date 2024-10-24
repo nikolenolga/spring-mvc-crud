@@ -22,9 +22,20 @@ public class TaskService {
         this.taskDAO = taskDAO;
     }
 
+    public int getCurrentPage(int page, int totalPages) {
+        if (page > totalPages && totalPages > 0) {
+            page = totalPages;
+        }
+        return page;
+    }
+
+    public List<TaskResponseTo> getCurrentPageList(int currentPage, int limit) {
+        return getAll((currentPage - 1) * limit, limit);
+    }
+
     public List<TaskResponseTo> getAll(int offset, int limit) {
         return taskDAO
-                .getAll(offset,limit)
+                .getAll(offset, limit)
                 .map(DtoMapper.MAPPER::from)
                 .toList();
     }
@@ -48,7 +59,7 @@ public class TaskService {
     @Transactional
     public void edit(int id, String description, Status status) {
         Task task = taskDAO.getById(id);
-        if(isNull(task)) {
+        if (isNull(task)) {
             throw new AppException("Task with id = %d not found".formatted(id));
         }
         task.setDescription(description);
@@ -58,7 +69,7 @@ public class TaskService {
 
     @Transactional
     public void create(TaskRequestTo taskRequestTo) {
-        if(isNull(taskRequestTo) || (taskRequestTo.getId() != null && taskRequestTo.getId() != 0)) {
+        if (isNull(taskRequestTo) || (taskRequestTo.getId() != null && taskRequestTo.getId() != 0)) {
             throw new AppException("Can't create task %s".formatted(taskRequestTo));
         }
         taskDAO.saveOrUpdate(DtoMapper.MAPPER.from(taskRequestTo));
@@ -67,7 +78,7 @@ public class TaskService {
     @Transactional
     public void delete(int id) {
         Task task = taskDAO.getById(id);
-        if(isNull(task)) {
+        if (isNull(task)) {
             throw new AppException("Task with id = %d not found".formatted(id));
         }
         taskDAO.delete(task);

@@ -4,10 +4,10 @@ import com.javarush.domain.Status;
 import com.javarush.domain.Task;
 import com.javarush.dto.TaskRequestTo;
 import com.javarush.dto.TaskResponseTo;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class DtoMapperTest {
 
     @Test

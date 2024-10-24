@@ -1,7 +1,8 @@
 package com.javarush.domain;
 
-import lombok.ToString;
+import lombok.Getter;
 
+@Getter
 public enum Status {
     IN_PROGRESS("IN_PROGRESS"),
     DONE("DONE"),
@@ -11,10 +12,6 @@ public enum Status {
 
     Status(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

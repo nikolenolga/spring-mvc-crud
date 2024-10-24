@@ -5,7 +5,9 @@ import com.javarush.dto.TaskRequestTo;
 import com.javarush.dto.TaskResponseTo;
 import com.javarush.exception.AppException;
 import com.javarush.service.TaskService;
-import com.javarush.utils.RequestHelper;
+import com.javarush.utils.Go;
+import com.javarush.utils.Key;
+import com.javarush.utils.View;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,76 +16,64 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@RequestMapping({"/", ""})
 @Controller
+@RequestMapping({Go.INDEX, Go.EMPTY})
+@SessionAttributes("statuses")
 public class TaskController {
-
     private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
-
+    @ModelAttribute(Key.STATUSES)
+    public Status[] statuses() {
+        return Status.values();
+    }
 
     @GetMapping
     public String readTasks(Model model,
-                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                        @RequestParam(value = "limit", required = false, defaultValue = "10") int limit
+                            @RequestParam(value = Key.PAGE, required = false, defaultValue = Key.DEFAULT_PAGE) int page,
+                            @RequestParam(value = Key.LIMIT, required = false, defaultValue = Key.DEFAULT_LIMIT) int limit
     ) {
         int totalPages = taskService.countPages(limit);
-        if(page > totalPages){
-            page = totalPages;
-        }
-        List<TaskResponseTo> tasks = taskService.getAll(limit * (page - 1), limit);
+        int currentPage = taskService.getCurrentPage(page, totalPages);
+        List<TaskResponseTo> tasks = taskService.getCurrentPageList(currentPage, limit);
 
-        model.addAttribute("statuses", Status.values());
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("current_page", page);
-        if(totalPages > 1) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1 , totalPages).boxed().collect(Collectors.toList());
-            model.addAttribute("page_numbers", pageNumbers);
+        model.addAttribute(Key.TASKS, tasks);
+        model.addAttribute(Key.CURRENT_PAGE, currentPage);
+        if (totalPages > 1) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute(Key.PAGE_NUMBERS, pageNumbers);
         }
 
-        System.out.println("simple mapping");
-        System.out.println("-------------" + page + "--------------------------");
-        System.out.println("-------------" + limit + "--------------------------");
-        return RequestHelper.TASKS;
+        return View.TASKS;
     }
 
-
     @DeleteMapping("/{id}")
-    public String deleteTask(@PathVariable("id") Integer id) {
-        if(id <= 0) {
+    public String deleteTask(@PathVariable(Key.ID) Integer id) {
+        if (id <= 0) {
             throw new AppException("Invalid task id");
         }
-
-        //работает
-        System.out.println("delete test contr");
         taskService.delete(id);
-        System.out.println("-----------------------------------------------------------------------");
 
-        return RequestHelper.TASKS;
+        return View.TASKS;
     }
 
     @PostMapping
     public String createTask(@RequestBody TaskRequestTo taskRequestTo) {
-        System.out.println("add task contr");
-        System.out.println(taskRequestTo);
 
         taskService.create(taskRequestTo);
-        return RequestHelper.TASKS;
+        return View.TASKS;
     }
 
     @PostMapping("/{id}")
     public String updateTask(
-                        @RequestBody TaskRequestTo taskRequestTo,
-                        @PathVariable("id") Integer id
-    ){
-        System.out.println("save task contr");
-        System.out.println("--------------------------------");
+            @RequestBody TaskRequestTo taskRequestTo,
+            @PathVariable(Key.ID) Integer id
+    ) {
         taskService.edit(id, taskRequestTo.getDescription(), taskRequestTo.getStatus());
-        //taskService.edit(id, description, status);
-        return RequestHelper.TASKS;
+
+        return View.TASKS;
     }
 }

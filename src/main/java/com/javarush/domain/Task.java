@@ -5,14 +5,15 @@ import lombok.*;
 
 import java.util.Objects;
 
-@Getter
-@Setter
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Getter
+@Setter
 @Entity
 @Table(name = "task", schema = "todo")
+@ToString
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

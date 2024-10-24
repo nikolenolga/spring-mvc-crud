@@ -3,7 +3,6 @@ package com.javarush.dto;
 import com.javarush.domain.Status;
 import lombok.*;
 
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +10,7 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class TaskRequestTo {
+public class TaskResponseTo {
     Integer id;
     String description;
     Status status;

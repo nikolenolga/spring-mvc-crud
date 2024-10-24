@@ -17,6 +17,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class AppConfiguration {
+
     @Bean
     public LocalSessionFactoryBean sessionFactoryBean(){
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();

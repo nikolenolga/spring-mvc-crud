@@ -39,16 +39,19 @@ table tbody tr:nth-child(even){
     background: #f8f8f8!important;
 }
 
-.active_page {
-    color: lightgrey;
+.button_page {
+    width: 30px;
+    height: 30px;
+    border: 5px solid #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 7px;
+    background: #fff;
+    text-align: center;
 }
 
-.button_page {
-    color: darkgrey;
-    border: 2px solid black;
-    margin: 5px;
-    padding: 20px;
-    font-size: large;
+.active_page {
+    outline: 3px solid #ffd300;
 }
 
 .block {

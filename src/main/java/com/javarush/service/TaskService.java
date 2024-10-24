@@ -3,9 +3,11 @@ package com.javarush.service;
 import com.javarush.dao.TaskDAO;
 import com.javarush.domain.Status;
 import com.javarush.domain.Task;
+import com.javarush.dto.TaskRequestTo;
+import com.javarush.dto.TaskResponseTo;
 import com.javarush.exception.AppException;
+import com.javarush.mapping.DtoMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,8 +22,11 @@ public class TaskService {
         this.taskDAO = taskDAO;
     }
 
-    public List<Task> getAll(int offset, int limit) {
-        return taskDAO.getAll(offset,limit);
+    public List<TaskResponseTo> getAll(int offset, int limit) {
+        return taskDAO
+                .getAll(offset,limit)
+                .map(DtoMapper.MAPPER::from)
+                .toList();
     }
 
     public int countPages(int limit) {
@@ -35,11 +40,12 @@ public class TaskService {
         return taskDAO.getAllCount();
     }
 
-    public Task getById(int id) {
-        return taskDAO.getById(id);
+    public TaskResponseTo getById(int id) {
+        Task task = taskDAO.getById(id);
+        return DtoMapper.MAPPER.from(task);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void edit(int id, String description, Status status) {
         Task task = taskDAO.getById(id);
         if(isNull(task)) {
@@ -50,16 +56,15 @@ public class TaskService {
         taskDAO.saveOrUpdate(task);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void create(String description, Status status) {
-        Task task = Task.builder()
-                .description(description)
-                .status(status)
-                .build();
-        taskDAO.saveOrUpdate(task);
+    @Transactional
+    public void create(TaskRequestTo taskRequestTo) {
+        if(isNull(taskRequestTo) || (taskRequestTo.getId() != null && taskRequestTo.getId() != 0)) {
+            throw new AppException("Can't create task %s".formatted(taskRequestTo));
+        }
+        taskDAO.saveOrUpdate(DtoMapper.MAPPER.from(taskRequestTo));
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void delete(int id) {
         Task task = taskDAO.getById(id);
         if(isNull(task)) {

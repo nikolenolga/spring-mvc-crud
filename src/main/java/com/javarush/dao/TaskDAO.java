@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Repository
 public class TaskDAO {
@@ -19,11 +20,11 @@ public class TaskDAO {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-    public List<Task> getAll(int offset, int limit) {
+    public Stream<Task> getAll(int offset, int limit) {
         Query<Task> query = getSession().createQuery("select t from Task t", Task.class);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
-        return query.getResultList();
+        return query.getResultList().stream();
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)

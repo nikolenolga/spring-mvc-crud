@@ -3,6 +3,8 @@ package com.javarush.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @Builder
@@ -20,4 +22,18 @@ public class Task {
     @Column(columnDefinition = "int(11) NOT NULL")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id)
+                && Objects.equals(description, task.description)
+                && status == task.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

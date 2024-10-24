@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
     <title>Tasks</title>
     <link href="style/styles.css" rel="stylesheet">
 <!--    <script type="text/javascript" src="script/my.js"></script>-->
@@ -27,7 +27,7 @@
                 <tr th:each="task: ${tasks}">
                     <td th:text="${task.id}"></td>
                     <td th:text="${task.description}" th:id="'description_' + ${task.id}"></td>
-                    <td th:width="200" th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
+                    <td th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
                     <td th:id="'td_edit_' + ${task.id}">
                         <input th:id="'edit_' + ${task.id}" th:type="button" th:onclick="'edit_task(' + ${task.id} + ')'" th:value="Edit">
                     </td>
@@ -42,29 +42,27 @@
         <h2>Add new value</h2>
     </div>
     <div class="block">
-        <form method="post" action="/">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>-</td>
-                        <td>
-                            <label for="description_new"></label>
-                            <input id="description_new" name="description" type='text' />
-                        </td>
-                        <td>
-                            <label for="status_new"></label>
-                            <select id="status_new" name="status">
-                                <option th:each="status_value: ${statuses}" th:text="${status_value.name()}"></option>
-                            </select>
-                        </td>
-                        <td>
-                            <input th:id="save_new" type="submit" value="Save">
-                        </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+        <table>
+            <tbody>
+            <tr>
+                <td>-</td>
+                <td>
+                    <label for="description_new"></label>
+                    <input id="description_new" name="description" type='text' />
+                </td>
+                <td>
+                    <label for="status_new"></label>
+                    <select id="status_new" name="status">
+                        <option th:each="status_value: ${statuses}" th:text="${status_value.name()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input th:id="save_new" th:type="button" th:onclick="add_task()" th:value="Save">
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="block">
         <h2>
@@ -73,12 +71,9 @@
             </button>
         </h2>
     </div>
-
-    <h1 id="jqueryTest" onclick="$('#jqueryTest').text('new value')"> Tap to test jquery</h1>
 </div>
 
 <script>
-
     function delete_task(task_id) {
         let url = "/" + task_id;
         $.ajax({
@@ -89,35 +84,6 @@
             }
         });
     }
-
-    // function edit_task(task_id) {
-    //     let url = "/edit";
-    //     $.ajax({
-    //         url: url,
-    //         type: 'GET',
-    //     });
-    // }
-    //
-    //
-    // function update_task(task_id) {
-    //     let url = "/update";
-    //
-    //     let value_description = $("#input_description_" + task_id).val();
-    //     let value_status = $("#select_status_" + task_id).val();
-    //
-    //     $.ajax({
-    //         url: url,
-    //         type: 'POST',
-    //         dataType: 'json',
-    //         contentType: 'application/json;charset=UTF-8',
-    //         async: false,
-    //         data:JSON.stringify( {
-    //             "description": value_description,
-    //             "status" : value_status
-    //         })
-    //     });
-    // }
-    //
 
     function edit_task(task_id) {
         let identifier_delete = "#delete_" + task_id;
@@ -157,18 +123,49 @@
         let value_description = $("#input_description_" + task_id).val();
         let value_status = $("#select_status_" + task_id).val();
 
+        let url = "/" + task_id;
+
         $.ajax({
-            url: "/update",
+            url: url,
             method: 'POST',
-            data: {
-                id: task_id,
-                description: value_description,
-                status: value_status
-                    },
-            success: function () {
-                window.location.reload();
-            }
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            async: false,
+            data: JSON.stringify(
+                {
+                    "description": value_description,
+                    "status": value_status
+                })
         });
+
+        setTimeout(() => {
+            document.location.reload();
+        }, 300);
+    }
+
+    function add_task(task_id) {
+        let value_description = $("#description_new").val();
+        let value_status = $("#status_new").val();
+
+        let url = "/";
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            async: false,
+            data: JSON.stringify(
+                {
+                    "description": value_description,
+                    "status": value_status
+                }
+            )
+        });
+
+        setTimeout(() => {
+            document.location.reload();
+        }, 300);
     }
 
 </script>

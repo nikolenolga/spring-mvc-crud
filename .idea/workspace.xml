@@ -9,24 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dafc30e6-ac27-4c47-ac7d-770fe1e7d872" name="Changes" comment="add and apply Task dto, fix tasks.html and controller request data">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javarush/utils/Key.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/javarush/utils/View.java" afterDir="false" />
+    <list default="true" id="dafc30e6-ac27-4c47-ac7d-770fe1e7d872" name="Changes" comment="move statuses to session attribute and clean app">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my-mysql-db/init.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/config/AppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/config/AppConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/config/WebConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/config/WebConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/dao/TaskDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/dao/TaskDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/domain/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/domain/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/domain/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/domain/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/mapping/DtoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/mapping/DtoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/javarush/utils/RequestHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/javarush/utils/Go.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/html/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/html/tasks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/script/my.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/script/my.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/style/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/style/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/javarush/mapping/DtoMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/javarush/mapping/DtoMapperTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +37,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;nikolenolga&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/nikolenolga/spring-mvc-crud.git&quot;,
+    &quot;accountId&quot;: &quot;2bf10b2f-c07d-4254-afd9-18ede159d79a&quot;
+  }
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -69,39 +69,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.DtoMapperTest.executor": "Debug",
-    "JUnit.TaskServiceTest.create3.executor": "Run",
-    "JUnit.TaskServiceTest.executor": "Run",
-    "Maven.spring-mvc-crud [clean].executor": "Run",
-    "Maven.spring-mvc-crud [install].executor": "Run",
-    "Maven.spring-mvc-crud [validate].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Tomcat Server.root.executor": "Run",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "O:/IdeaProjects/JavaRush/smallProjects/spring-mvc-crud/src/main/webapp/html",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml.server: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DtoMapperTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.TaskServiceTest.create3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TaskServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-mvc-crud [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-mvc-crud [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-mvc-crud [validate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.root.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;O:/IdeaProjects/JavaRush/smallProjects/spring-mvc-crud/src/main/webapp/html&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="O:\IdeaProjects\JavaRush\smallProjects\spring-mvc-crud\src\main\webapp\html" />
@@ -236,6 +239,23 @@
         </option>
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.DtoMapperTest" />
+      <item itemvalue="JUnit.TaskServiceTest" />
+      <item itemvalue="Tomcat Server.root" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TaskServiceTest" />
@@ -268,7 +288,11 @@
       <workItem from="1729091330850" duration="2285000" />
       <workItem from="1729524977399" duration="3470000" />
       <workItem from="1729599221469" duration="2732000" />
-      <workItem from="1729610626255" duration="53882000" />
+      <workItem from="1729610626255" duration="55474000" />
+      <workItem from="1729795224790" duration="11151000" />
+      <workItem from="1729809439508" duration="3382000" />
+      <workItem from="1729813617541" duration="11541000" />
+      <workItem from="1729891822210" duration="1175000" />
     </task>
     <task id="LOCAL-00001" summary="crud ready - no SpringBoot">
       <option name="closed" value="true" />
@@ -286,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729733309252</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="move statuses to session attribute and clean app">
+      <option name="closed" value="true" />
+      <created>1729791200808</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729791200808</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,6 +338,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="crud ready - no SpringBoot" />
     <MESSAGE value="add and apply Task dto, fix tasks.html and controller request data" />
-    <option name="LAST_COMMIT_MESSAGE" value="add and apply Task dto, fix tasks.html and controller request data" />
+    <MESSAGE value="move statuses to session attribute and clean app" />
+    <option name="LAST_COMMIT_MESSAGE" value="move statuses to session attribute and clean app" />
   </component>
 </project>

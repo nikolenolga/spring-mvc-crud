@@ -31,7 +31,6 @@ public class AppConfiguration {
         properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
         properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         properties.put(Environment.HBM2DDL_AUTO, "validate");
-        properties.put(Environment.SHOW_SQL, true);
         return properties;
     }
 
@@ -41,7 +40,7 @@ public class AppConfiguration {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/todo");
         dataSource.setUsername("root");
-        dataSource.setPassword("Kapibara");
+        dataSource.setPassword("mysql");
         dataSource.setMaximumPoolSize(10);
         return dataSource;
     }
